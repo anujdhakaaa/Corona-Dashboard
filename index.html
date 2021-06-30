@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Corona Tracker</title>
+</head>
+<body>
+    <h2 class="heading"> <i><u> CORONA</u> </i> &nbsp;  <i><u >DASHBOARD</u></i></h2>
+    <div class="maincon">
+        
+        <div class="minicon">
+            <form id="form">
+                <input type="text" placeholder="Country Name" class="input" id="text">
+                <input type="submit" id="submit" class="input" value="Get Data" >
+            </form>
+        </div>
+        <div class="maxcon" id="ap">
+            
+            <div id="box1" class="box">
+                <div class="head">Total Confirmed:</div>
+                <div class="body" id="b1"></div>
+            </div>
+            
+            <div id="box2" class="box">
+                <div class="head">Total death:</div>
+                <div class="body" id="b2"></div>
+            </div>
+            <div id="box3" class="box">
+                <div class="head"> Total Recover:</div>
+                <div class="body" id="b3"></div>
+            </div>
+            <div id="box4" class="box">
+                <div class="head"> Active Cases:</div>
+                <div class="body" id="b4"></div>
+            </div>
+           
+        </div>
+        <div class="updatee"> UPDATED ON -<span id="update"></span></div>
+        </div>
+</body>
+<script>
+    var form =document.getElementById('form');
+    form.addEventListener('submit', function(e){
+        e.preventDefault()
+        var country =document.getElementById('text').value;
+     
+     var url= 'https://api.covid19api.com/country/'+country
+
+     fetch(url)
+     .then((res) =>res.json())
+     .then((res)  => {
+         console.log(res)
+         var length= res.length
+        //  console.log(length)
+         var index= length-1
+
+         var confirmed =document.getElementById('b1')
+         var death =document.getElementById('b2')
+         var recovered =document.getElementById('b3')
+         var active =document.getElementById('b4')
+         var update= document.getElementById('update')
+
+          confirmed.innerHTML=""
+          death.innerHTML=""
+          recovered.innerHTML=""
+          active.innerHTML=""
+          update.innerHTML=""
+
+         confirmed.append(res[index].Confirmed)
+         death.append(res[index].Deaths)
+         recovered.append(res[index].Recovered)
+         active.append(res[index].Active)
+         update.append(res[index].Date)
+
+     });
+    })
+    
+         
+
+    
+
+    
+  
+</script>
+</html>
